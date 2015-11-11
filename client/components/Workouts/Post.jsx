@@ -37,7 +37,7 @@ var Post = React.createClass({
     var content = this.state.content;
 
     return (
-      <article>
+      <article className="card">
         <p>{{title}}</p>
           <div className="content" dangerouslySetInnerHTML={this.rawHTML()}
           />
