@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import $ from 'jquery';
-import localData from 'assets/tumblr.js'
+import Post from 'components/Post/Post.jsx';
 
 var key = 'bQTVmsvDxOUr9rhtcQQUHKmVIOEeK4HFsphbbuigobItKsdDOP';
 var endpoint = 'https://api.tumblr.com/v2/blog/nos.twnsnd.co/posts';
@@ -9,12 +9,8 @@ var endpoint = 'https://api.tumblr.com/v2/blog/nos.twnsnd.co/posts';
 
 var Posts = React.createClass({
   getInitialState: function() {
-    return {
-      title: 'New Old Stock',
-      caption: 'loading',
-      loading: 'loading-image',
-      notes: 0,
-    };
+    this.state = {blogPosts: []};
+    return this.state;
   },
 
   componentDidMount: function() {
@@ -25,58 +21,43 @@ var Posts = React.createClass({
         api_key: key,
       },
       type: "GET",
-      success: this.loadPosts,
-      error: this.savedPosts
+      success: this.loadData
     });
   },
 
-  loadPosts: function(data) {
-    var posts = data.response.posts[0]
-
-    console.log("posts", posts);
-
+  loadData: function(results) {
+    var data = results.response.posts;
     this.setState({
-      caption: posts.caption,
-      imageURL: posts.photos[0].original_size.url,
-      notes: posts.note_count,
-      loading: 0
+      blogPosts: data
     });
-  },
-
-  savedPosts: function() {
-    var posts = localData.response.posts[0]
-
-    console.log("posts", posts);
-
-
-    this.setState({
-      caption: posts.caption,
-      imageURL: posts.photos[0].original_size.url,
-      notes: posts.note_count,
-      loading: 0
-    });
+    console.log("post", this.state.blogPosts);
   },
 
   rawHTML: function() {
-   return { __html: this.state.caption };
+   return { __html: this.props.caption };
   },
 
   render: function() {
+    var photoPosts = [];
 
-    var caption = this.state.caption;
-    var imageURL = this.state.imageURL;
-    var notes = this.state.notes
+    this.state.blogPosts.forEach(function(post) {
+
+      console.log("post", post);
+
+      var caption = post.caption;
+      // var imageURL = post.photos[0].original_size.url;
+      var postURL = post.postURL;
+      var notes = post.notes;
+
+      photoPosts.push(
+        <Post caption={caption} imageURL={imageURL} postURL={postURL} notes={notes} />
+      );
+    });
 
     return (
-      <figure className="card photo-post">
-        <div className={this.state.loading ? 'loading' : 'hasLoaded'}>
-          <img src={imageURL}></img>
-        </div>
-        <figcaption>
-          <span dangerouslySetInnerHTML={this.rawHTML()}/>
-          <span className="notes">{notes} Notes</span>
-        </figcaption>
-      </figure>
+      <section className="post-block">
+        {photoPosts}
+      </section>
     );
   }
 });
