@@ -30,27 +30,23 @@ var Posts = React.createClass({
     this.setState({
       blogPosts: data
     });
-    console.log("post", this.state.blogPosts);
-  },
-
-  rawHTML: function() {
-   return { __html: this.props.caption };
   },
 
   render: function() {
     var photoPosts = [];
 
     this.state.blogPosts.forEach(function(post) {
-
       console.log("post", post);
 
       var caption = post.caption;
-      // var imageURL = post.photos[0].original_size.url;
-      var postURL = post.postURL;
-      var notes = post.notes;
+      var imageURL = post.photos[0].original_size.url;
+      var postURL = post.post_url;
+      var noteCount = post.note_count;
+
+      console.log("post src", postURL);
 
       photoPosts.push(
-        <Post caption={caption} imageURL={imageURL} postURL={postURL} notes={notes} />
+        <Post key={post.id} caption={caption} imageURL={imageURL} postURL={postURL} notes={noteCount} />
       );
     });
 

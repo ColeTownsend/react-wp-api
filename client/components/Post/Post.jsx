@@ -1,15 +1,18 @@
 import React from 'react';
+import Like from 'components/Like/Like.jsx';
 
 var Post = React.createClass({
+
+
   render: function() {
     return (
       <figure className="card photo-post">
-        <div>
-          <img src={imageURL} />
+        <div className="image-wrapper">
+          <img src={this.props.imageURL} />
         </div>
         <figcaption>
-          <span dangerouslySetInnerHTML={this.rawHTML()}/>
-          <a src={postURL} className="notes">{notes} Notes</a>
+          <span dangerouslySetInnerHTML={{__html: this.props.caption}}/>
+          <a href={this.props.postURL} className="notes">{this.props.notes} ❤</a>
         </figcaption>
       </figure>
     );
@@ -18,7 +21,7 @@ var Post = React.createClass({
 
 Post.defaultProps = {
   caption: 'Something should be here.',
-  notes: 0,
+  noteCount: 0,
   postURL: '',
   imageURL: ''
 };
