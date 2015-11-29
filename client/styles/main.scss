@@ -61,6 +61,15 @@ a {
     justify-content: space-between;
   }
 
+  .caption {
+    flex: 1;
+  }
+
+  .notes {
+    width: 90px;
+    text-align: right;
+  }
+
   img {
     width: 100%;
     height: auto;
