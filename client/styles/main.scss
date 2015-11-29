@@ -1,38 +1,97 @@
+$max-width: 640px;
+
+html {
+  font-size: 13px;
+}
+
 body {
   background: #f9f9f9;
+  color: #534D4B;
   display: flex;
+  display: flex;
+  font-family: "Range Mono", monospace;
+  font-size: 1rem;
+  font-weight: 400;
   height: 100%;
   justify-content: space-around;
   margin: 0;
   width: 100%;
-  font-family: "SF UI Text", "Avenir", monospace;
+}
+
+.container {
+  max-width: $max-width;
+}
+
+header {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+h1 {
+  position: relative;
+  font-size: 4rem;
   font-weight: normal;
+}
+
+.love {
+  position: absolute;
+  right: 40px;
+  top: -45px;
+  width: 140px;
+  height: auto;
+  opacity: .9;
+  mix-blend-mode: multiply;
+}
+
+nav {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
   display: flex;
+  justify-content: center;
+  margin-top: 40px;
+
+  a {
+    margin: 0 15px;
+
+    &:hover {
+      text-decoration: underline;
+      color: blue;
+    }
+  }
 }
 
 .card {
   background-color: #fff;
   box-shadow: 0 1px 2px rgba(0,0,0,.05);
   display: flex;
-  max-width: 640px;
-  display: flex;
+  width: 100%;
   flex-direction: column;
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: #534D4B;
 
   &:hover {
     color: blue;
   }
 
   &:visited {
-    color: purple;
+    color: lighten(#534D4B, 33);
   }
 }
 
+figure  {
+  margin: 0;
+  display: flex;
+}
+
 .photo-post {
+  & + .photo-post {
+    margin-top: 40px;
+  }
 
   .loading {
     height: 480px;
@@ -49,16 +108,12 @@ a {
     height: auto;
   }
 
-  figure  {
-    margin: 0;
-    display: flex;
-  }
-
   figcaption {
     padding: 12px 18px;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    line-height: 2;
   }
 
   .caption {
@@ -74,4 +129,9 @@ a {
     width: 100%;
     height: auto;
   }
+}
+
+// utitlies
+.tac {
+  text-align: center;
 }

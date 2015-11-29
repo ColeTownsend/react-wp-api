@@ -3,5 +3,18 @@ import 'styles/main.scss';
 import React from 'react';
 import $ from 'jquery';
 import Posts from 'components/Posts/Posts.jsx';
+import Nav from 'components/Nav/Nav.jsx';
 
-React.render(<Posts />, document.body);
+
+var App = React.createClass({
+  render: function() {
+    return (
+      <main className="container">
+        <Nav />
+        <Posts />
+      </main>
+    );
+  }
+});
+
+React.render(<App />, document.body);

@@ -9,7 +9,7 @@ var endpoint = 'https://api.tumblr.com/v2/blog/nos.twnsnd.co/posts';
 
 var Posts = React.createClass({
   getInitialState: function() {
-    this.state = {blogPosts: []};
+    this.state = {blogPosts: [], loading: true};
     return this.state;
   },
 
@@ -19,6 +19,8 @@ var Posts = React.createClass({
       dataType: 'jsonp',
       data: {
         api_key: key,
+        offset: 10,
+        limit: 10
       },
       type: "GET",
       success: this.loadData
@@ -28,7 +30,8 @@ var Posts = React.createClass({
   loadData: function(results) {
     var data = results.response.posts;
     this.setState({
-      blogPosts: data
+      blogPosts: data,
+      loading: false
     });
   },
 
@@ -42,11 +45,12 @@ var Posts = React.createClass({
       var imageURL = post.photos[0].original_size.url;
       var postURL = post.post_url;
       var noteCount = post.note_count;
+      var loaded = "hasLoaded"
 
       console.log("post src", postURL);
 
       photoPosts.push(
-        <Post key={post.id} caption={caption} imageURL={imageURL} postURL={postURL} notes={noteCount} />
+        <Post key={post.id} caption={caption} imageURL={imageURL} postURL={postURL} notes={noteCount} loading={loaded} />
       );
     });
 
