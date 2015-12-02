@@ -5,22 +5,38 @@ import Post from 'components/Post/Post.jsx';
 
 var key = 'bQTVmsvDxOUr9rhtcQQUHKmVIOEeK4HFsphbbuigobItKsdDOP';
 var endpoint = 'https://api.tumblr.com/v2/blog/nos.twnsnd.co/posts';
-
+var limit = 6;
 
 var Posts = React.createClass({
   getInitialState: function() {
-    this.state = {blogPosts: [], loading: true};
+    this.state = {
+      blogPosts: [],
+      isLoading: true,
+      isLoadingMore: false
+    };
     return this.state;
   },
 
+  showLoader() {
+    this.setState({isLoading: true});
+  },
+
+  hideLoader() {
+    this.setState({isLoading: false});
+  },
+
   componentDidMount: function() {
+    this.fetchJSON(0, 6, false);
+  },
+
+  fetchJSON: function(offset, isLoadingMore) {
     $.ajax({
       url: endpoint,
       dataType: 'jsonp',
       data: {
         api_key: key,
-        offset: 10,
-        limit: 10
+        offset: offset,
+        limit: limit
       },
       type: "GET",
       success: this.loadData
@@ -29,9 +45,21 @@ var Posts = React.createClass({
 
   loadData: function(results) {
     var data = results.response.posts;
-    this.setState({
-      blogPosts: data,
-      loading: false
+    this.setState({blogPosts: this.state.blogPosts.concat(data), loading: false});
+  },
+
+  loadMore: function() {
+    console.log("test")
+    $(window).unbind('scroll');
+    $(window).bind('scroll', function() {
+
+      if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        console.log("test")
+        var offset = limit + 1;
+        this.setState({isLoadingMore: true}); //To show loader at the bottom
+
+        this.fetchJSON(offset, true);
+      }
     });
   },
 
@@ -39,18 +67,14 @@ var Posts = React.createClass({
     var photoPosts = [];
 
     this.state.blogPosts.forEach(function(post) {
-      console.log("post", post);
-
       var caption = post.caption;
       var imageURL = post.photos[0].original_size.url;
       var postURL = post.post_url;
       var noteCount = post.note_count;
       var loaded = "hasLoaded"
 
-      console.log("post src", postURL);
-
       photoPosts.push(
-        <Post key={post.id} caption={caption} imageURL={imageURL} postURL={postURL} notes={noteCount} loading={loaded} />
+        <Post key={post.id} caption={caption} imageURL={imageURL} postURL={postURL} notes={noteCount} loading={loaded}/>
       );
     });
 
