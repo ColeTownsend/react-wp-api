@@ -27,6 +27,16 @@ var Posts = React.createClass({
 
   componentDidMount: function() {
     this.fetchJSON(0, 6, false);
+    $(window).unbind('scroll');
+    $(window).bind('scroll', () => {
+      if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        console.log("test");
+        var offset = this.state.blogPosts.length + limit + 1;
+        this.setState({isLoadingMore: true}); //To show loader at the bottom
+
+        this.fetchJSON(offset, true);
+      }
+    });
   },
 
   fetchJSON: function(offset, isLoadingMore) {
@@ -46,21 +56,11 @@ var Posts = React.createClass({
   loadData: function(results) {
     var data = results.response.posts;
     this.setState({blogPosts: this.state.blogPosts.concat(data), loading: false});
+    console.log(this.state.blogPosts.length);
   },
 
   loadMore: function() {
-    console.log("test")
-    $(window).unbind('scroll');
-    $(window).bind('scroll', function() {
-
-      if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-        console.log("test")
-        var offset = limit + 1;
-        this.setState({isLoadingMore: true}); //To show loader at the bottom
-
-        this.fetchJSON(offset, true);
-      }
-    });
+    console.log("test");
   },
 
   render: function() {
@@ -71,7 +71,7 @@ var Posts = React.createClass({
       var imageURL = post.photos[0].original_size.url;
       var postURL = post.post_url;
       var noteCount = post.note_count;
-      var loaded = "hasLoaded"
+      var loaded = "hasLoaded";
 
       photoPosts.push(
         <Post key={post.id} caption={caption} imageURL={imageURL} postURL={postURL} notes={noteCount} loading={loaded}/>

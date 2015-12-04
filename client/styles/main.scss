@@ -9,7 +9,7 @@ body {
   color: #534D4B;
   display: flex;
   display: flex;
-  font-family: "Range Mono", monospace;
+  font-family: "Range Mono","Inconsolata", monospace;
   font-size: 1rem;
   font-weight: 400;
   height: 100%;
@@ -29,8 +29,14 @@ header {
 
 h1 {
   position: relative;
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: normal;
+}
+
+.title a {
+  &:visited {
+    color: #534D4B;
+  }
 }
 
 .love {
