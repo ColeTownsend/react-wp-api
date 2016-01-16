@@ -1,4 +1,5 @@
 import 'styles/main.scss';
+import 'assets/fonts/font.css';
 
 import React from 'react';
 import $ from 'jquery';

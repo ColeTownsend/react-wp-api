@@ -9,11 +9,8 @@ var Post = React.createClass({
           <img src={this.props.imageURL}/>
         </div>
         <figcaption>
-          <span className="caption" dangerouslySetInnerHTML={{
-          __html: this. props. caption
-          }}/>
-          <a href={this.props.postURL} className="notes">{this.props.notes}
-            ❤</a>
+          <span className="caption" dangerouslySetInnerHTML={{ __html: this.props.caption }}/>
+          <a href={this.props.postURL} className="notes">{this.props.notes}<span className="heart">❤</span></a>
         </figcaption>
       </figure>
     );

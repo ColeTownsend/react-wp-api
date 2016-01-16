@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Range Mono';
+  src: url('range-mono-regular.eot'); /* IE9 Compat Modes */
+  src: url('range-mono-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('range-mono-regular.woff') format('woff'), /* Modern Browsers */
+       url('range-mono-regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('range-mono-regular.svg#6f02a566670687ae4c9e22a719b2fbad') format('svg'); /* Legacy iOS */
+       
+  font-style:   normal;
+  font-weight:  400;
+}
+
