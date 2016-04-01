@@ -145,3 +145,27 @@ figure  {
 .tac {
   text-align: center;
 }
+
+
+#carbonads {
+    padding: 8px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    font-family: "Futura","proxima-nova", "Proxima Nova";
+}
+#carbonads img {
+    border-radius: 1px;
+}
+.carbon-text {
+    max-width: 130px;
+    text-decoration: none;
+    margin-top: 8px;
+}
+#carbonads a {
+    color: #333;
+}
+.carbon-poweredby {
+    color: #efefef;
+    font-size: 90%;
+    position: relative;
+    opacity: .5;
+}
